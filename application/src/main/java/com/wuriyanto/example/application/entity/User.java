@@ -9,7 +9,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "users")
 public class User extends AbstractJpaEntity {
-    
+
     @Column(name = "full_name")
     private String fullName;
 

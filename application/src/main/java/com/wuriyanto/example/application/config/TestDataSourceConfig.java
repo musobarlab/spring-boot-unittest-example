@@ -27,7 +27,7 @@ import java.util.HashMap;
         transactionManagerRef = "h2TransactionManager")
 @Profile("test")
 public class TestDataSourceConfig {
-    
+
     private final static Logger LOGGER = LoggerFactory.getLogger(TestDataSourceConfig.class);
 
     @Bean
@@ -47,7 +47,7 @@ public class TestDataSourceConfig {
         LocalContainerEntityManagerFactoryBean em
                 = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(h2DataSource());
-        em.setPackagesToScan(new String[] { "com.wuriyanto.example.application.*" });
+        em.setPackagesToScan(new String[]{"com.wuriyanto.example.application.*"});
 
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(vendorAdapter);

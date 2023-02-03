@@ -29,7 +29,7 @@ import java.util.HashMap;
         transactionManagerRef = "postgresTransactionManager")
 @Profile("production")
 public class DataSourceConfig {
-    
+
     private final static Logger LOGGER = LoggerFactory.getLogger(DataSourceConfig.class);
 
     @Autowired
@@ -52,7 +52,7 @@ public class DataSourceConfig {
         LocalContainerEntityManagerFactoryBean em
                 = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(postgresDataSource());
-        em.setPackagesToScan(new String[] { "com.wuriyanto.example.application.*" });
+        em.setPackagesToScan(new String[]{"com.wuriyanto.example.application.*"});
 
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(vendorAdapter);

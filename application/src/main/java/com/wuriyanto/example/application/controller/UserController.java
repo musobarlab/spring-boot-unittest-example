@@ -23,7 +23,7 @@ import jakarta.servlet.http.HttpServletResponse;
 @RestController
 @RequestMapping("/users")
 public class UserController {
-    
+
     private final static Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
@@ -38,7 +38,7 @@ public class UserController {
                     true,
                     new RegisterResponse(newUser),
                     "register user succeed");
-        } catch(Exception e) {
+        } catch (Exception e) {
             response.setStatus(HttpStatus.BAD_REQUEST.value());
             return new CustomResponse(HttpStatus.BAD_REQUEST.value(),
                     false,
@@ -65,7 +65,7 @@ public class UserController {
                     true,
                     new RegisterResponse(user),
                     "get user succeed");
-        } catch(Exception e) {
+        } catch (Exception e) {
             response.setStatus(HttpStatus.BAD_REQUEST.value());
             return new CustomResponse(HttpStatus.BAD_REQUEST.value(),
                     false,

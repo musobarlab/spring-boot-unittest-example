@@ -20,7 +20,7 @@ import com.wuriyanto.example.application.service.UserService;
 
 @SpringBootTest
 public class UserServiceTest {
-    
+
     @TestConfiguration
     static class UserServiceImplTestContextConfiguration {
 
@@ -50,7 +50,7 @@ public class UserServiceTest {
         String expected = "Alex";
 
         RegisterRequest registerData = new RegisterRequest("Alex", "alex@gmail.com");
-        
+
         User actualUser = userServiceTest.register(registerData);
 
         Assertions.assertEquals(expected, actualUser.getFullName());
@@ -64,5 +64,5 @@ public class UserServiceTest {
 
         Assertions.assertEquals(expected, actualUser.getFullName());
     }
-    
+
 }

@@ -10,8 +10,8 @@ import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 public class CustomErrorController implements ErrorController {
-    
-    @RequestMapping(value = "/error", method  = RequestMethod.GET)
+
+    @RequestMapping(value = "/error", method = RequestMethod.GET)
     @ResponseBody
     String error(HttpServletRequest request) {
         return "error occurred";

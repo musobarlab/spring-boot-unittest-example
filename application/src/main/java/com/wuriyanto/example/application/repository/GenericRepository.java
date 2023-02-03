@@ -25,7 +25,6 @@ public class GenericRepository<T extends AbstractJpaEntity, ID extends Serializa
         this.entityInformation = entityInformation;
     }
 
-
     @Override
     public boolean isDeleted(T model) {
         return false;

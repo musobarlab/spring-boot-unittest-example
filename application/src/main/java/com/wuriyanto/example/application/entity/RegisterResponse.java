@@ -1,7 +1,7 @@
 package com.wuriyanto.example.application.entity;
 
 public class RegisterResponse {
-    
+
     private String fullName;
     private String email;
 

@@ -27,13 +27,13 @@ import com.wuriyanto.example.application.repository.UserRepository;
 // @AutoConfigureTestDatabase
 class UserControllerTest {
 
-	@Autowired
-	private MockMvc mvc;
+    @Autowired
+    private MockMvc mvc;
 
-	@Autowired
-	private UserRepository userRepository;
+    @Autowired
+    private UserRepository userRepository;
 
-	@BeforeEach
+    @BeforeEach
     public void setup() {
         User farid = new User("Farid", "farid@gmail.com", new Date(), new Date());
         User alex = new User("Alex", "alex@gmail.com", new Date(), new Date());
@@ -42,35 +42,35 @@ class UserControllerTest {
         userRepository.save(alex);
 
     }
-	
-	@AfterEach
-	public void cleanup() {
-		userRepository.deleteAll();
-	}
 
-	@Test
-	public void registerShouldReturnNewUserEqualToDemo() throws Exception {
-		RegisterRequest registerRequest = new RegisterRequest("demo", "demo@yahoo.com");
-		mvc.perform(
-			MockMvcRequestBuilders.post("/users")
-			.contentType(MediaType.APPLICATION_JSON)
-			.content(JsonUtil.toJson(registerRequest)));
+    @AfterEach
+    public void cleanup() {
+        userRepository.deleteAll();
+    }
 
-		String expected = "demo";
+    @Test
+    public void registerShouldReturnNewUserEqualToDemo() throws Exception {
+        RegisterRequest registerRequest = new RegisterRequest("demo", "demo@yahoo.com");
+        mvc.perform(
+                MockMvcRequestBuilders.post("/users")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(JsonUtil.toJson(registerRequest)));
 
-		User actualUser = userRepository.findByEmail("demo@yahoo.com");
-		
-		Assertions.assertEquals(expected, actualUser.getFullName());
-	}
+        String expected = "demo";
 
-	@Test
-	public void getUserShouldReturn200() throws Exception {
-		mvc.perform(
-			MockMvcRequestBuilders.get("/users")
-			.param("email", "alex@gmail.com")
-			.contentType(MediaType.APPLICATION_JSON)
-		).andDo(MockMvcResultHandlers.print())
-		.andExpect(MockMvcResultMatchers.status().isOk());
-	}
+        User actualUser = userRepository.findByEmail("demo@yahoo.com");
+
+        Assertions.assertEquals(expected, actualUser.getFullName());
+    }
+
+    @Test
+    public void getUserShouldReturn200() throws Exception {
+        mvc.perform(
+                MockMvcRequestBuilders.get("/users")
+                        .param("email", "alex@gmail.com")
+                        .contentType(MediaType.APPLICATION_JSON)
+        ).andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isOk());
+    }
 
 }

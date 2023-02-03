@@ -25,12 +25,10 @@ public interface IGenericRepository<T, ID extends Serializable> extends JpaRepos
 
     Page<T> findAll(Pageable pageable);
 
-
     /**
      * Custom method
      *
      */
-
     boolean isDeleted(T model);
 
     void remove(T model);

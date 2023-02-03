@@ -30,7 +30,6 @@ public final class Pbkdf2 {
 //
 //        System.out.println(verifyPassword("12345", h));
 //    }
-
     public static String hashPassword(String password, final int saltLen, final int iterations, final int keyLen) throws NoSuchAlgorithmException {
         char[] passwordChars = password.toCharArray();
         byte[] saltBytes = getSalt(saltLen);
@@ -105,7 +104,6 @@ public final class Pbkdf2 {
 //            return hex;
 //        }
 //    }
-
     private static byte[] getSalt(int saltLen) throws NoSuchAlgorithmException {
         SecureRandom sr = SecureRandom.getInstance(RANDOM_ALGORITHM);
         byte[] salt = new byte[saltLen];

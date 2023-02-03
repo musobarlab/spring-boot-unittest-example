@@ -29,9 +29,9 @@ public class UserRepositoryTest {
     }
 
     @AfterEach
-	public void cleanup() {
-		userRepository.deleteAll();
-	}
+    public void cleanup() {
+        userRepository.deleteAll();
+    }
 
     @Test
     public void saveNewDataShouldIncreasedTheData() {

@@ -19,12 +19,12 @@ import org.springframework.core.env.Environment;
 public class AppConfig {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AppConfig.class);
-    
+
     @Autowired
     Environment env;
-    
+
     @Bean
-    public WebServerFactoryCustomizer<ConfigurableServletWebServerFactory> webServerFactoryCustomizer () {
+    public WebServerFactoryCustomizer<ConfigurableServletWebServerFactory> webServerFactoryCustomizer() {
         return new WebServerFactoryCustomizer<ConfigurableServletWebServerFactory>() {
 
             @Override
@@ -32,7 +32,7 @@ public class AppConfig {
                 factory.setContextPath("");
                 factory.setPort(Integer.parseInt(env.getRequiredProperty("HTTP_PORT")));
             }
-            
+
         };
     }
 }
