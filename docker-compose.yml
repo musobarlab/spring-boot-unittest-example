@@ -73,17 +73,34 @@ services:
         networks:
             demo:
     
+    postgressonar:
+        container_name: postgressonar
+        working_dir: /usr/app
+        volumes:
+            - ./volumes/postgres_sonar_data:/var/lib/postgresql/data
+        image: postgres
+        environment:
+            - POSTGRES_USER=demo
+            - POSTGRES_PASSWORD=12345
+            - POSTGRES_DB=demo
+            - PGPORT=5431
+            # - PGDATA=/tmp
+        ports:
+            - "5431:5432"
+        networks:
+            demo:
+    
     sonarqube:
         image: sonarqube:community
         hostname: sonarqube
         container_name: sonarqube
         depends_on:
-            - postgres
+            - postgressonar
         environment:
-            SONAR_JDBC_URL: jdbc:postgresql://postgres:5432/demo
+            SONAR_JDBC_URL: jdbc:postgresql://postgressonar:5431/demo
             SONAR_JDBC_USERNAME: demo
             SONAR_JDBC_PASSWORD: 12345
-            SONAR_SEARCH_JAVAADDITIONALOPTS: -Dsonar.es.bootstrap.checks.disable=true
+            # SONAR_SEARCH_JAVAADDITIONALOPTS: -Dsonar.es.bootstrap.checks.disable=true
         volumes:
             - ./volumes/sonarqube_data:/opt/sonarqube/data
             - ./volumes/sonarqube_extensions:/opt/sonarqube/extensions
