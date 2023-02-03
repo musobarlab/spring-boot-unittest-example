@@ -37,20 +37,6 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.0.0-M4</version>
             </plugin>
-            <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>report-aggregate</id>
-                        <goals>
-                            <goal>report-aggregate</goal>
-                            <!-- <goal>report</goal> -->
-                        </goals>
-                        <phase>test</phase>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
     </build>
 </project>

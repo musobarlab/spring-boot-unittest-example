@@ -20,21 +20,22 @@
   <modules>
     <module>application</module>
     <module>pbkdf2</module>
+    <module>tests</module>
   </modules>
 
   <properties>
 		<org.postgresql.version>42.5.1</org.postgresql.version>
 
-    <!-- code coverage report -->
-    <jacoco.version>0.8.8</jacoco.version>
-    <!-- <aggregate.report.dir>target/site/jacoco-aggregate/jacoco.xml</aggregate.report.dir> -->
-    <!-- <aggregate.report.dir>target/site/jacoco/jacoco.xml</aggregate.report.dir> -->
-    <!-- <sonar.exclusions>application/**/*, core/**/*, lib/**/*</sonar.exclusions> -->
+        <!-- code coverage report -->
+        <jacoco.version>0.8.8</jacoco.version>
+        <!-- <aggregate.report.dir>target/site/jacoco-aggregate/jacoco.xml</aggregate.report.dir> -->
+        <!-- <aggregate.report.dir>target/site/jacoco/jacoco.xml</aggregate.report.dir> -->
+        <!-- <sonar.exclusions>application/**/*, core/**/*, lib/**/*</sonar.exclusions> -->
 
-    <sonar.coverage.jacoco.xmlReportPaths>${project.basedir}\..\application\target\site\jacoco-aggregate\jacoco.xml
+        <sonar.coverage.jacoco.xmlReportPaths>
+            ${project.basedir}/../tests/target/site/jacoco-aggregate/jacoco.xml
         </sonar.coverage.jacoco.xmlReportPaths>
-    <sonar.coverage.jacoco.xmlReportPaths>${project.basedir}\..\..\pbkdf2\target\site\jacoco-aggregate\jacoco.xml
-        </sonar.coverage.jacoco.xmlReportPaths>
+        <sonar.exclusions>application/src/main/java/com/wuriyanto/example/application/config/*</sonar.exclusions>
 	</properties>
 
   <dependencies>
@@ -85,7 +86,7 @@
                 <plugin>
                     <groupId>org.sonarsource.scanner.maven</groupId>
                     <artifactId>sonar-maven-plugin</artifactId>
-                    <version>3.6.0.1398</version>
+                    <version>3.9.1</version>
                 </plugin>
                 <plugin>
                     <groupId>org.jacoco</groupId>
