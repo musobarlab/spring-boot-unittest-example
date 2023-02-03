@@ -1,0 +1,127 @@
+version: '3.7'
+services:
+#    ldap_server:
+#        build: ./openldap
+#        command: --copy-service
+#        environment:
+#            LDAP_ADMIN_PASSWORD: test1234
+#            LDAP_BASE_DN: dc=musobarmedia,dc=com
+#            LDAP_TLS: "true"
+#            LDAP_TLS_CRT_FILENAME: "server.crt"
+#            LDAP_TLS_KEY_FILENAME: "server.key"
+#            LDAP_TLS_DH_PARAM_FILENAME: "dhparam.pem"
+#            LDAP_TLS_CA_CRT_FILENAME: "server.crt"
+#            LDAP_TLS_ENFORCE: "false"
+#            LDAP_TLS_CIPHER_SUITE: "SECURE256:-VERS-SSL3.0"
+#            LDAP_TLS_PROTOCOL_MIN: "3.1"
+#            LDAP_TLS_VERIFY_CLIENT: "demand"
+#        ports:
+#            - 389:389
+#            - 636:636
+#        volumes:
+#            - ./volumes/openldap/ldap_data:/var/lib/ldap
+#            - ./volumes/openldap/ldap_config:/etc/ldap/slapd.d
+#        networks:
+#            demo:
+#                aliases:
+#                    - ldap.server.me
+#    ldap_server_admin:
+#        image: osixia/phpldapadmin:0.7.2
+#        ports:
+#            - 9000:80
+#        # volumes:
+#        #     - ./volumes/ldapadmin/config:/container/service/phpldapadmin/assets/config
+#        environment:
+#            PHPLDAPADMIN_LDAP_HOSTS: ldap.server.me
+#            PHPLDAPADMIN_HTTPS: 'false'
+#        networks:
+#            demo:
+#
+#        depends_on:
+#            - ldap_server
+    # cloudstorage:
+    #     # minio set bucket public permission
+    #     # create config with alias $ mc config host add minio-local http://localhost:9000 minion 123456789
+    #     # show buckets $ mc ls minio-local
+    #     # set my-bucket-one bucket to public $ mc policy set public minio-local/my-bucket-one
+    #     image: "minio/minio"
+    #     command: server /data
+    #     volumes:
+    #         - ./volumes/minio:/data
+    #     environment:
+    #         MINIO_ACCESS_KEY: minion
+    #         MINIO_SECRET_KEY: 123456789
+    #     ports:
+    #         - 9000:9000
+    #     networks:
+    #         demo:
+
+    # psql --dbname=demo --username=demo --password
+    postgres:
+        container_name: postgres
+        working_dir: /usr/app
+        volumes:
+            - ./volumes/postgres_data:/var/lib/postgresql/data
+        image: postgres
+        environment:
+            - POSTGRES_USER=demo
+            - POSTGRES_PASSWORD=12345
+            - POSTGRES_DB=demo
+            # - PGDATA=/tmp
+        ports:
+            - "5432:5432"
+        networks:
+            demo:
+    
+    sonarqube:
+        image: sonarqube:community
+        hostname: sonarqube
+        container_name: sonarqube
+        depends_on:
+            - postgres
+        environment:
+            SONAR_JDBC_URL: jdbc:postgresql://postgres:5432/demo
+            SONAR_JDBC_USERNAME: demo
+            SONAR_JDBC_PASSWORD: 12345
+            SONAR_SEARCH_JAVAADDITIONALOPTS: -Dsonar.es.bootstrap.checks.disable=true
+        volumes:
+            - ./volumes/sonarqube_data:/opt/sonarqube/data
+            - ./volumes/sonarqube_extensions:/opt/sonarqube/extensions
+            - ./volumes/sonarqube_logs:/opt/sonarqube/logs
+        ports:
+            - "9000:9000"
+        networks:
+            demo:
+
+    # mongodb:
+    #     image: mongo
+    #     container_name: "mongodb"
+    #     environment:
+    #         - MONGO_DATA_DIR=/data/db
+    #         - MONGO_LOG_DIR=/dev/null
+    #         - MONGO_INITDB_DATABASE=demo
+    #         - MONGO_INITDB_ROOT_USERNAME=admin
+    #         - MONGO_INITDB_ROOT_PASSWORD=admin
+    #     volumes:
+    #         - ./dbscript/mongo/001_users.js:/docker-entrypoint-initdb.d/001_users.js:ro
+    #         - ./volumes/mongodb:/data/db
+    #     networks:
+    #         - demo
+    #     ports:
+    #         - 27017:27017
+    #     command: mongod --auth
+
+    # redis:
+    #     image: "redis:3.0-alpine"
+    #     command: redis-server --requirepass devpass
+    #     volumes:
+    #         - ./volumes/redis:/data
+    #     ports:
+    #         - 6379:6379
+    #     networks:
+    #         - demo
+
+
+networks:
+    demo:
+        driver: bridge
